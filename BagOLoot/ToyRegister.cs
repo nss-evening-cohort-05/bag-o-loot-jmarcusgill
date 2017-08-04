@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BagOLoot
 {
@@ -9,7 +10,8 @@ namespace BagOLoot
     public Toy Add(string toy, Child child)
     {
       // Create new toy instance
-      Toy newToy = new Toy(){
+      Toy newToy = new Toy()
+      {
         name = toy,
         child = child
       };
@@ -20,14 +22,32 @@ namespace BagOLoot
       return newToy;
     }
 
-    public void RevokeToy(Child kid, Toy toy)
+    public void RevokeToy(Toy toy)
     {
+      // Toy newToy = new Toy()
+      // {
+      // name = toy,
+      // child = kid
+      // };
+
+      // _toys.Remove(newToy);
+
+      // return newToy;
+      _toys.Remove(toy);
+
 
     }
 
     public List<Toy> GetToysForChild(Child kid)
     {
-      return new List<Toy>();
+      
+      //return _toys.Where(toy => toy.child == kid).ToList();
+
+      var kidsToys = from toy in _toys
+                    where toy.child == kid
+                    select toy;
+
+        return kidsToys.ToList();
     }
   }
 }
